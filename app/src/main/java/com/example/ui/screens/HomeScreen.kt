@@ -438,9 +438,9 @@ fun CategorySection(onNavigateToCategory: () -> Unit = {}) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
-            .shadow(elevation = 2.dp, shape = RoundedCornerShape(16.dp), spotColor = Color.Gray.copy(alpha = 0.1f))
+            .shadow(elevation = 2.dp, shape = RoundedCornerShape(16.dp), spotColor = Color.Gray.copy(alpha = 0.2f))
             .background(Color.White, RoundedCornerShape(16.dp))
-            .padding(vertical = 20.dp, horizontal = 8.dp)
+            .padding(vertical = 16.dp, horizontal = 12.dp)
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -459,9 +459,8 @@ fun CategorySection(onNavigateToCategory: () -> Unit = {}) {
                         ) {
                             Box(
                                 modifier = Modifier
-                                    .size(42.dp)
-                                    .border(1.dp, Color.LightGray.copy(alpha = 0.3f), CircleShape)
-                                    .shadow(elevation = 1.dp, shape = CircleShape, spotColor = Color.Red.copy(alpha = 0.05f))
+                                    .size(48.dp)
+                                    .shadow(elevation = 3.dp, shape = CircleShape, spotColor = Color.Gray.copy(alpha = 0.3f), ambientColor = Color.Gray.copy(alpha = 0.1f))
                                     .clip(CircleShape)
                                     .background(if (name == "More") color else Color.White),
                                 contentAlignment = Alignment.Center
@@ -470,20 +469,20 @@ fun CategorySection(onNavigateToCategory: () -> Unit = {}) {
                                     imageVector = icon,
                                     contentDescription = name.replace("\n", " "),
                                     tint = if (name == "More") Color.White else color,
-                                    modifier = Modifier.size(24.dp)
+                                    modifier = Modifier.size(26.dp)
                                 )
                             }
-                            Spacer(modifier = Modifier.height(6.dp))
+                            Spacer(modifier = Modifier.height(8.dp))
                             Text(
                                 text = name,
-                                fontSize = 9.sp,
+                                fontSize = 10.sp,
                                 color = Color.Black,
-                                fontWeight = FontWeight.SemiBold,
+                                fontWeight = FontWeight.Medium,
                                 maxLines = 1,
                                 softWrap = false,
                                 overflow = TextOverflow.Clip,
                                 textAlign = androidx.compose.ui.text.style.TextAlign.Center,
-                                lineHeight = 10.sp,
+                                lineHeight = 12.sp,
                                 modifier = Modifier.basicMarquee()
                             )
                         }
@@ -731,7 +730,7 @@ fun CircleDealProductCard(
     Card(
         modifier = modifier
             .border(1.dp, Color.LightGray.copy(alpha = 0.3f), RoundedCornerShape(12.dp))
-            .shadow(elevation = 1.dp, shape = RoundedCornerShape(12.dp), spotColor = Color.Red.copy(alpha = 0.05f))
+            .shadow(elevation = 2.dp, shape = RoundedCornerShape(12.dp), spotColor = Color.Gray.copy(alpha = 0.1f))
             .clip(RoundedCornerShape(12.dp))
             .clickable { onNavigateToProduct() },
         colors = CardDefaults.cardColors(containerColor = Color.White),
@@ -756,7 +755,7 @@ fun CircleDealProductCard(
                     modifier = Modifier
                         .align(Alignment.TopStart)
                         .padding(top = 0.dp, start = 0.dp)
-                        .background(Color(0xFFF44336), RoundedCornerShape(topStart = 12.dp, bottomEnd = 8.dp))
+                        .background(Color(0xFFE53935), RoundedCornerShape(topStart = 12.dp, bottomEnd = 8.dp))
                         .padding(horizontal = 6.dp, vertical = 4.dp),
                     contentAlignment = Alignment.Center
                 ) {
@@ -780,19 +779,20 @@ fun CircleDealProductCard(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .background(Color.White)
                     .padding(8.dp),
                 verticalArrangement = Arrangement.Bottom
             ) {
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(4.dp))
-                        .background(Color(0xFF81C784).copy(alpha = 0.4f))
-                        .padding(horizontal = 4.dp, vertical = 2.dp),
+                        .background(Color(0xFFE8F5E9))
+                        .padding(horizontal = 6.dp, vertical = 2.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
                         text = "CIRCLE DEALS",
-                        color = Color(0xFF2E7D32),
+                        color = Color(0xFF43A047),
                         fontSize = 8.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -830,13 +830,13 @@ fun CircleDealProductCard(
                 LinearProgressIndicator(
                     progress = { progress },
                     modifier = Modifier.fillMaxWidth().height(4.dp).clip(RoundedCornerShape(2.dp)),
-                    color = Color(0xFFF44336),
+                    color = Color(0xFFE53935),
                     trackColor = Color(0xFFFFEBEE),
                 )
                 
                 Text(
                     text = leftText,
-                    color = Color(0xFFF44336), // Red
+                    color = Color(0xFFE53935), // Red
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.align(Alignment.CenterHorizontally).padding(top = 4.dp)
