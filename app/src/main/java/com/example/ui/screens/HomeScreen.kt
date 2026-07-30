@@ -311,13 +311,16 @@ fun HeroBanner() {
 
 @Composable
 fun CircleDealsSection(onNavigateToProduct: (String) -> Unit, onNavigateToCircleDeals: (String?) -> Unit = {}) {
-    val cardWidth = 140.dp
-    val cardHeight = 250.dp
+    val configuration = LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp.dp
+    val screenHeight = configuration.screenHeightDp.dp
+    val cardWidth = screenWidth * 0.23f
+    val cardHeight = screenHeight * 0.20f
 
     val listState = androidx.compose.foundation.lazy.rememberLazyListState()
     androidx.compose.runtime.LaunchedEffect(Unit) {
         while(true) {
-            kotlinx.coroutines.delay(3000)
+            kotlinx.coroutines.delay(4000)
             if (listState.layoutInfo.totalItemsCount > 0) {
                 val nextIndex = (listState.firstVisibleItemIndex + 1) % listState.layoutInfo.totalItemsCount
                 listState.animateScrollToItem(nextIndex)
@@ -336,13 +339,13 @@ fun CircleDealsSection(onNavigateToProduct: (String) -> Unit, onNavigateToCircle
                     Icons.Default.FlashOn,
                     contentDescription = null,
                     tint = Color(0xFFFFC107),
-                    modifier = Modifier.size(22.dp)
+                    modifier = Modifier.size(20.dp)
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
                     text = "Circle Deals",
                     fontWeight = FontWeight.Black,
-                    fontSize = 18.sp,
+                    fontSize = 16.sp,
                     color = Color.Black
                 )
             }
@@ -351,12 +354,12 @@ fun CircleDealsSection(onNavigateToProduct: (String) -> Unit, onNavigateToCircle
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.clickable { onNavigateToCircleDeals(null) }
             ) {
-                Text("Shop More", color = Color(0xFF388E3C), fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                Text("Shop More", color = Color(0xFF388E3C), fontWeight = FontWeight.Bold, fontSize = 13.sp)
                 Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, tint = Color(0xFF388E3C), modifier = Modifier.size(16.dp))
             }
         }
         
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(6.dp))
         
         Row(
             modifier = Modifier.padding(horizontal = 16.dp),
@@ -372,7 +375,7 @@ fun CircleDealsSection(onNavigateToProduct: (String) -> Unit, onNavigateToCircle
         LazyRow(
             state = listState,
             contentPadding = PaddingValues(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             val deals = listOf(
                 Deal("Haylou Solar Lite Smart Watch", "৳2,450", "৳4,450", R.drawable.img_product_watch, "-45%", 0.1f, "Only 10 Left"),
@@ -438,9 +441,9 @@ fun CategorySection(onNavigateToCategory: () -> Unit = {}) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
-            .shadow(elevation = 2.dp, shape = RoundedCornerShape(16.dp), spotColor = Color.Gray.copy(alpha = 0.2f))
-            .background(Color.White, RoundedCornerShape(16.dp))
-            .padding(vertical = 16.dp, horizontal = 12.dp)
+            .border(1.dp, Color.LightGray.copy(alpha = 0.3f), RoundedCornerShape(12.dp))
+            .background(Color.White, RoundedCornerShape(12.dp))
+            .padding(vertical = 16.dp, horizontal = 4.dp)
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -459,8 +462,9 @@ fun CategorySection(onNavigateToCategory: () -> Unit = {}) {
                         ) {
                             Box(
                                 modifier = Modifier
-                                    .size(48.dp)
-                                    .shadow(elevation = 3.dp, shape = CircleShape, spotColor = Color.Gray.copy(alpha = 0.3f), ambientColor = Color.Gray.copy(alpha = 0.1f))
+                                    .size(42.dp)
+                                    .border(1.dp, Color.LightGray.copy(alpha = 0.3f), CircleShape)
+                                    .shadow(elevation = 1.dp, shape = CircleShape, spotColor = Color.Red.copy(alpha = 0.05f))
                                     .clip(CircleShape)
                                     .background(if (name == "More") color else Color.White),
                                 contentAlignment = Alignment.Center
@@ -469,20 +473,20 @@ fun CategorySection(onNavigateToCategory: () -> Unit = {}) {
                                     imageVector = icon,
                                     contentDescription = name.replace("\n", " "),
                                     tint = if (name == "More") Color.White else color,
-                                    modifier = Modifier.size(26.dp)
+                                    modifier = Modifier.size(24.dp)
                                 )
                             }
-                            Spacer(modifier = Modifier.height(8.dp))
+                            Spacer(modifier = Modifier.height(6.dp))
                             Text(
                                 text = name,
-                                fontSize = 10.sp,
+                                fontSize = 9.sp,
                                 color = Color.Black,
-                                fontWeight = FontWeight.Medium,
+                                fontWeight = FontWeight.SemiBold,
                                 maxLines = 1,
                                 softWrap = false,
                                 overflow = TextOverflow.Clip,
                                 textAlign = androidx.compose.ui.text.style.TextAlign.Center,
-                                lineHeight = 12.sp,
+                                lineHeight = 10.sp,
                                 modifier = Modifier.basicMarquee()
                             )
                         }
@@ -729,23 +733,23 @@ fun CircleDealProductCard(
 ) {
     Card(
         modifier = modifier
-            .border(1.dp, Color.LightGray.copy(alpha = 0.3f), RoundedCornerShape(12.dp))
-            .shadow(elevation = 2.dp, shape = RoundedCornerShape(12.dp), spotColor = Color.Gray.copy(alpha = 0.1f))
-            .clip(RoundedCornerShape(12.dp))
+            .border(1.dp, Color.LightGray.copy(alpha = 0.3f), RoundedCornerShape(8.dp))
+            .shadow(elevation = 1.dp, shape = RoundedCornerShape(8.dp), spotColor = Color.Gray.copy(alpha = 0.1f))
+            .clip(RoundedCornerShape(8.dp))
             .clickable { onNavigateToProduct() },
         colors = CardDefaults.cardColors(containerColor = Color.White),
-        shape = RoundedCornerShape(12.dp)
+        shape = RoundedCornerShape(8.dp)
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)
+                    .aspectRatio(1f)
             ) {
                 Image(
                     painter = painterResource(id = imageRes),
                     contentDescription = title,
-                    modifier = Modifier.fillMaxSize().padding(12.dp),
+                    modifier = Modifier.fillMaxSize().padding(8.dp),
                     contentScale = ContentScale.Fit,
                     alignment = Alignment.Center
                 )
@@ -754,8 +758,7 @@ fun CircleDealProductCard(
                 Box(
                     modifier = Modifier
                         .align(Alignment.TopStart)
-                        .padding(top = 0.dp, start = 0.dp)
-                        .background(Color(0xFFE53935), RoundedCornerShape(topStart = 12.dp, bottomEnd = 8.dp))
+                        .background(Color(0xFFE53935), RoundedCornerShape(topStart = 8.dp, bottomEnd = 8.dp))
                         .padding(horizontal = 6.dp, vertical = 4.dp),
                     contentAlignment = Alignment.Center
                 ) {
@@ -772,7 +775,7 @@ fun CircleDealProductCard(
                     Icons.Outlined.FavoriteBorder, 
                     contentDescription = "Wishlist", 
                     tint = Color.Gray, 
-                    modifier = Modifier.align(Alignment.TopEnd).padding(8.dp).size(20.dp)
+                    modifier = Modifier.align(Alignment.TopEnd).padding(8.dp).size(16.dp)
                 )
             }
             
@@ -787,7 +790,7 @@ fun CircleDealProductCard(
                     modifier = Modifier
                         .clip(RoundedCornerShape(4.dp))
                         .background(Color(0xFFE8F5E9))
-                        .padding(horizontal = 6.dp, vertical = 2.dp),
+                        .padding(horizontal = 4.dp, vertical = 2.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
@@ -801,26 +804,28 @@ fun CircleDealProductCard(
                 
                 Text(
                     text = title,
-                    fontSize = 13.sp,
+                    fontSize = 12.sp,
                     fontWeight = FontWeight.Medium,
                     color = Color.Black,
                     maxLines = 2,
-                    lineHeight = 16.sp
+                    lineHeight = 14.sp,
+                    overflow = TextOverflow.Ellipsis
                 )
                 
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 4.dp)) {
                     Text(
                         text = price,
-                        fontSize = 15.sp,
+                        fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color(0xFF388E3C)
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = oldPrice,
-                        fontSize = 12.sp,
+                        fontSize = 10.sp,
                         color = Color.Gray,
-                        textDecoration = TextDecoration.LineThrough
+                        textDecoration = TextDecoration.LineThrough,
+                        maxLines = 1
                     )
                 }
                 
@@ -836,7 +841,7 @@ fun CircleDealProductCard(
                 
                 Text(
                     text = leftText,
-                    color = Color(0xFFE53935), // Red
+                    color = Color(0xFFE53935),
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.align(Alignment.CenterHorizontally).padding(top = 4.dp)
